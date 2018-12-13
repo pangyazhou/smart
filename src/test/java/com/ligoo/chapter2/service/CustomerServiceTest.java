@@ -26,7 +26,7 @@ public class CustomerServiceTest {
 
     @Before
     public void init(){
-        // TODO
+        DataSourceHelper.executeSqlFile("ini_customer.sql");
     }
     @Test
     public void getCustomerList() {

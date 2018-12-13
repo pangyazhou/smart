@@ -2,6 +2,7 @@ package com.ligoo.chapter2.helper;
 
 import com.ligoo.chapter2.util.CollectionUtil;
 import com.ligoo.chapter2.util.PropsUtil;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -9,6 +10,10 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,26 +30,25 @@ import java.util.Properties;
 public final class DataSourceHelper {
     private final static Logger LOGGER = LoggerFactory.getLogger(DataSourceHelper.class);
 
-    private final static String DRIVER;
-    private final static String URL;
-    private final static String USERNAME;
-    private final static String PASSWORD;
-
-    private static final QueryRunner QUERY_RUNNER = new QueryRunner();
-    private static final ThreadLocal<Connection> CONNECTION_HOLDER = new ThreadLocal<Connection>();
+    private static final QueryRunner QUERY_RUNNER;
+    private static final ThreadLocal<Connection> CONNECTION_HOLDER;
+    private static final BasicDataSource DATA_SOURCE;
 
 
     static {
+        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+        QUERY_RUNNER = new QueryRunner();
         Properties datasource = PropsUtil.loadProps("datasource.properties");
-        DRIVER = datasource.getProperty("jdbc.driver");
-        URL = datasource.getProperty("jdbc.url");
-        USERNAME = datasource.getProperty("jdbc.username");
-        PASSWORD = datasource.getProperty("jdbc.password");
-        try {
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("cannot load jdbc driver.", e);
-        }
+        String driver = datasource.getProperty("jdbc.driver");
+        String url = datasource.getProperty("jdbc.url");
+        String username = datasource.getProperty("jdbc.username");
+        String password = datasource.getProperty("jdbc.password");
+
+        DATA_SOURCE = new BasicDataSource();
+        DATA_SOURCE.setDriverClassName(driver);
+        DATA_SOURCE.setUrl(url);
+        DATA_SOURCE.setUsername(username);
+        DATA_SOURCE.setPassword(password);
     }
 
     /**
@@ -59,7 +63,7 @@ public final class DataSourceHelper {
         Connection conn = CONNECTION_HOLDER.get();
         if(conn == null) {
             try {
-                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                conn = DATA_SOURCE.getConnection();
             } catch (SQLException e) {
                 LOGGER.error("get connection failure", e);
                 throw new RuntimeException(e);
@@ -70,27 +74,6 @@ public final class DataSourceHelper {
         return conn;
     }
 
-    /**
-     * description: 关闭数据库连接
-     * author: Administrator
-     * date: 2018/12/12 16:35
-     *
-     * @param:
-     * @return:
-     */
-    public static void closeConnection(){
-        Connection connection = CONNECTION_HOLDER.get();
-        if(connection != null){
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                LOGGER.error("close connection failure", e);
-                throw new RuntimeException(e);
-            }finally {
-                CONNECTION_HOLDER.remove();
-            }
-        }
-    }
 
     /**
      * description: 程序实体列表
@@ -110,8 +93,6 @@ public final class DataSourceHelper {
         } catch (SQLException e) {
             LOGGER.error("query entity list failure", e);
             throw new RuntimeException(e);
-        }finally {
-            closeConnection();
         }
         return entityList;
     }
@@ -132,8 +113,6 @@ public final class DataSourceHelper {
         } catch (SQLException e) {
             LOGGER.error("query entity list failure", e);
             throw new RuntimeException(e);
-        }finally {
-            closeConnection();
         }
         return entity;
     }
@@ -175,8 +154,6 @@ public final class DataSourceHelper {
         } catch (SQLException e) {
             LOGGER.error("execute update failure.", e);
             throw new RuntimeException(e);
-        }finally {
-            closeConnection();
         }
         return rows;
     }
@@ -249,5 +226,19 @@ public final class DataSourceHelper {
      */
     public static String getTableName(Class<?> clazz){
         return clazz.getSimpleName().toLowerCase();
+    }
+
+    public static void executeSqlFile(String filePath){
+        InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        try {
+            String sql;
+            while ((sql = reader.readLine()) != null) {
+                executeUpdate(sql, null);
+            }
+        }catch (Exception e){
+            LOGGER.error("execute sql file failure", e);
+            throw new RuntimeException(e);
+        }
     }
 }

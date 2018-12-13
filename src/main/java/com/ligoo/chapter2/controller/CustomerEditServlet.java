@@ -12,7 +12,7 @@ import java.io.IOException;
  * @Date: 2018/12/12 14:48:42
  * @Description:
  */
-@WebServlet("customer_edit")
+@WebServlet("/customer_edit")
 public class CustomerEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
