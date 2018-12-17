@@ -1,4 +1,4 @@
-package com.ligoo.chapter2.util;
+package com.ligoo.framework.util;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,5 +33,17 @@ public class StringUtil {
      */
     public static boolean isNotEmpty(String str){
         return !isEmpty(str);
+    }
+
+    /**
+     * description: 分隔字符串
+     * author: Administrator
+     * date: 2018/12/14 16:37
+     *
+     * @param:
+     * @return:
+     */
+    public static String[] splitString(String str, String separatorChars){
+        return StringUtils.split(str, separatorChars);
     }
 }

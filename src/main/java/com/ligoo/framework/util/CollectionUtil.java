@@ -1,4 +1,4 @@
-package com.ligoo.chapter2.util;
+package com.ligoo.framework.util;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;

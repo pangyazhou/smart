@@ -1,7 +1,8 @@
 package com.ligoo.chapter2.service;
 
-import com.ligoo.chapter2.helper.DataSourceHelper;
-import com.ligoo.chapter2.model.Customer;
+import com.ligoo.framework.helper.DataSourceHelper;
+import com.ligoo.chapter3.model.Customer;
+import com.ligoo.chapter3.service.CustomerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +10,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: Administrator

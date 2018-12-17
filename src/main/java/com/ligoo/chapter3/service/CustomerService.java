@@ -1,13 +1,10 @@
-package com.ligoo.chapter2.service;
+package com.ligoo.chapter3.service;
 
-import com.ligoo.chapter2.helper.DataSourceHelper;
-import com.ligoo.chapter2.model.Customer;
+import com.ligoo.framework.helper.DataSourceHelper;
+import com.ligoo.chapter3.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

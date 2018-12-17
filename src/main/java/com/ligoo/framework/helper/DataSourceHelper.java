@@ -1,7 +1,7 @@
-package com.ligoo.chapter2.helper;
+package com.ligoo.framework.helper;
 
-import com.ligoo.chapter2.util.CollectionUtil;
-import com.ligoo.chapter2.util.PropsUtil;
+import com.ligoo.framework.util.CollectionUtil;
+import com.ligoo.framework.util.PropsUtil;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -11,11 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +36,11 @@ public final class DataSourceHelper {
     static {
         CONNECTION_HOLDER = new ThreadLocal<Connection>();
         QUERY_RUNNER = new QueryRunner();
-        Properties datasource = PropsUtil.loadProps("datasource.properties");
-        String driver = datasource.getProperty("jdbc.driver");
-        String url = datasource.getProperty("jdbc.url");
-        String username = datasource.getProperty("jdbc.username");
-        String password = datasource.getProperty("jdbc.password");
+        Properties datasource = PropsUtil.loadProps("smart.properties");
+        String driver = datasource.getProperty("smart.framework.jdbc.driver");
+        String url = datasource.getProperty("smart.framework.jdbc.url");
+        String username = datasource.getProperty("smart.framework.jdbc.username");
+        String password = datasource.getProperty("smart.framework.jdbc.password");
 
         DATA_SOURCE = new BasicDataSource();
         DATA_SOURCE.setDriverClassName(driver);

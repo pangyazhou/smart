@@ -1,4 +1,5 @@
-package com.ligoo.chapter2.util;
+package com.ligoo.framework.util;
+
 
 /**
  * @Author: Administrator

@@ -1,6 +1,5 @@
-package com.ligoo.chapter2.util;
+package com.ligoo.framework.util;
 
-import jdk.internal.util.xml.impl.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +105,7 @@ public class PropsUtil {
         return value;
     }
     public static void main(String[] args){
-        Properties properties = PropsUtil.loadProps("datasource.properties");
+        Properties properties = PropsUtil.loadProps("smart.properties");
         String url = properties.getProperty("jdbc.url");
         System.out.println(url);
     }
