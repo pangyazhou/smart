@@ -1,4 +1,4 @@
-package com.ligoo.chapter3.controller;
+package com.ligoo.chapter4.controller;
 
 /**
  * @Author: Administrator
@@ -6,8 +6,8 @@ package com.ligoo.chapter3.controller;
  * @Description:
  */
 
-import com.ligoo.chapter3.service.CustomerService;
-import com.ligoo.chapter3.model.Customer;
+import com.ligoo.chapter4.service.CustomerService;
+import com.ligoo.chapter4.model.Customer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

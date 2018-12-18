@@ -1,4 +1,4 @@
-package com.ligoo.chapter3.model;
+package com.ligoo.chapter4.model;
 
 /**
  * @Author: Administrator

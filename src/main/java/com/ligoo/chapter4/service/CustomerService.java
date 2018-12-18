@@ -1,7 +1,7 @@
-package com.ligoo.chapter3.service;
+package com.ligoo.chapter4.service;
 
 import com.ligoo.framework.helper.DataSourceHelper;
-import com.ligoo.chapter3.model.Customer;
+import com.ligoo.chapter4.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

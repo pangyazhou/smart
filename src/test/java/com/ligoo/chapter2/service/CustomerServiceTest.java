@@ -1,8 +1,8 @@
 package com.ligoo.chapter2.service;
 
 import com.ligoo.framework.helper.DataSourceHelper;
-import com.ligoo.chapter3.model.Customer;
-import com.ligoo.chapter3.service.CustomerService;
+import com.ligoo.chapter4.model.Customer;
+import com.ligoo.chapter4.service.CustomerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

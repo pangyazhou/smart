@@ -1,12 +1,12 @@
-package com.ligoo.chapter3.controller;
+package com.ligoo.chapter4.controller;
 
 import com.ligoo.framework.annotation.Action;
 import com.ligoo.framework.annotation.Controller;
 import com.ligoo.framework.annotation.Inject;
 import com.ligoo.framework.bean.Data;
 import com.ligoo.framework.bean.View;
-import com.ligoo.chapter3.model.Customer;
-import com.ligoo.chapter3.service.HelloService;
+import com.ligoo.chapter4.model.Customer;
+import com.ligoo.chapter4.service.HelloService;
 
 import java.util.List;
 

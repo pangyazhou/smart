@@ -4,6 +4,7 @@ import com.ligoo.framework.annotation.Controller;
 import com.ligoo.framework.annotation.Service;
 import com.ligoo.framework.util.ClassUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,6 +81,42 @@ public class ClassHelper {
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
         return beanClassSet;
+    }
+
+    /**
+     * description: 获取应用包名下某父类(接口)的子类(实现)
+     * author: Administrator
+     * date: 2018/12/18 14:00
+     *
+     * @param:
+     * @return:
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass){
+        Set<Class<?>> classSet = new HashSet<>();
+        for(Class<?> clazz: CLASS_SET){
+            if(superClass.isAssignableFrom(clazz) && !superClass.equals(clazz)){
+                classSet.add(clazz);
+            }
+        }
+        return classSet;
+    }
+
+    /**
+     * description: 获取应用包名下所有带某注解的类
+     * author: Administrator
+     * date: 2018/12/18 14:01
+     *
+     * @param:
+     * @return:
+     */
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass){
+        Set<Class<?>> classSet = new HashSet<>();
+        for (Class<?> clazz: CLASS_SET){
+            if (clazz.isAnnotationPresent(annotationClass)){
+                classSet.add(clazz);
+            }
+        }
+        return classSet;
     }
 
 }

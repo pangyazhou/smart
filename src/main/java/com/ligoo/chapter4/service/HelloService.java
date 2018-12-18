@@ -1,8 +1,8 @@
-package com.ligoo.chapter3.service;
+package com.ligoo.chapter4.service;
 
 import com.ligoo.framework.annotation.Service;
 import com.ligoo.framework.helper.DataSourceHelper;
-import com.ligoo.chapter3.model.Customer;
+import com.ligoo.chapter4.model.Customer;
 
 import java.util.List;
 

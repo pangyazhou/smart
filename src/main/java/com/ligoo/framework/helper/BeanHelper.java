@@ -48,4 +48,16 @@ public class BeanHelper {
         }
         return BEAN_MAP.get(clazz);
     }
+
+    /**
+     * description: 添加bean实例
+     * author: Administrator
+     * date: 2018/12/18 13:57
+     *
+     * @param:
+     * @return:
+     */
+    public static void setBean(Class<?> clazz, Object obj){
+        BEAN_MAP.put(clazz, obj);
+    }
 }
