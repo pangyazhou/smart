@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
     public static void main(String[] args){
-       new Test().testClassProxy();
+       new Test().testAspect();
     }
     public void testBeforeAndAfterAdvice(){
         Greeting greeting = new GreetingImpl();
@@ -51,5 +51,13 @@ public class Test {
         Apology apology = (Apology) greetingProxy;
         apology.saySorry("lixiaolong");
 
+    }
+    public void testAspect(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("com/ligoo/chapter4/aop/Spring.xml");
+        Greeting greetingProxy = (GreetingImpl) context.getBean("greetingImpl");
+        greetingProxy.sayName("pangyazhou");
+        greetingProxy.sayBye();
+        ((GreetingImpl) greetingProxy).goodMorning("pangyazhou");
+        ((GreetingImpl) greetingProxy).goodNight("pangyazhou");
     }
 }
