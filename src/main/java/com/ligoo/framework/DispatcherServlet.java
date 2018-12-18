@@ -118,7 +118,6 @@ public class DispatcherServlet extends HttpServlet {
                         for (Map.Entry<String,Object> entry: model.entrySet()){
                             request.setAttribute(entry.getKey(), entry.getValue());
                         }
-                        //request.getRequestDispatcher("/WEB-INF/view/customer.jsp").forward(request, response);
                         request.getRequestDispatcher(ConfigHelper.getAppJspPath() + path).forward(request, response);
                     }
                 }

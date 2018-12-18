@@ -95,6 +95,25 @@
           <version>2.9.7</version>
       </dependency>
 
+      <!--CGLIB动态代理库-->
+      <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+      <dependency>
+          <groupId>cglib</groupId>
+          <artifactId>cglib</artifactId>
+          <version>3.2.4</version>
+      </dependency>
+    <!--AOP示例-->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>3.1.4.RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>3.1.4.RELEASE</version>
+      </dependency>
+
   </dependencies>
 
   <build>
