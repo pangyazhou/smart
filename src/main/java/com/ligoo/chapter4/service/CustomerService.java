@@ -1,5 +1,7 @@
 package com.ligoo.chapter4.service;
 
+import com.ligoo.framework.annotation.Service;
+import com.ligoo.framework.annotation.Transaction;
 import com.ligoo.framework.helper.DataSourceHelper;
 import com.ligoo.chapter4.model.Customer;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import java.util.Map;
  * @Date: 2018/12/12 14:54:32
  * @Description:提供客户数据服务
  */
+@Service
 public class CustomerService {
     private final static Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
     /**
@@ -50,6 +53,7 @@ public class CustomerService {
      * @param: fieldMap 构建新用户信息
      * @return:
      */
+    @Transaction
     public boolean createCustomer(Map<String, Object> fieldMap){
         return DataSourceHelper.insertEntity(Customer.class, fieldMap);
     }
@@ -63,6 +67,7 @@ public class CustomerService {
      * @param fieldMap 更新的用户信息
      * @return:
      */
+    @Transaction
     public boolean updateCustomer(long id, Map<String,Object> fieldMap){
        return DataSourceHelper.updateEntity(Customer.class, id, fieldMap);
     }
@@ -75,6 +80,7 @@ public class CustomerService {
      * @param:
      * @return:
      */
+    @Transaction
     public boolean deleteCustomer(long id){
        return DataSourceHelper.deleteEntity(Customer.class, id);
     }

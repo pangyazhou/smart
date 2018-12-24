@@ -74,6 +74,74 @@ public final class DataSourceHelper {
 
 
     /**
+     * description: 开启事务
+     * author: Administrator
+     * date: 2018/12/20 13:43
+     *
+     * @param:
+     * @return:
+     */
+    public static void beginTransaction(){
+        Connection conn = getConnection();
+        if(conn != null){
+            try {
+                conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                LOGGER.error("begin transaction failure", e);
+                throw new RuntimeException(e);
+            }finally {
+                CONNECTION_HOLDER.set(conn);
+            }
+        }
+    }
+
+    /**
+     * description: 提交事务
+     * author: Administrator
+     * date: 2018/12/20 13:43
+     *
+     * @param:
+     * @return:
+     */
+    public static void commitTransaction(){
+        Connection conn = getConnection();
+        if(conn != null) {
+            try {
+                conn.commit();
+                conn.close();
+            } catch (SQLException e) {
+                LOGGER.error("commit transaction failure", e);
+                throw new RuntimeException(e);
+            } finally {
+                CONNECTION_HOLDER.remove();
+            }
+        }
+    }
+
+    /**
+     * description: 事务回滚
+     * author: Administrator
+     * date: 2018/12/20 13:43
+     *
+     * @param:
+     * @return:
+     */
+    public static void rollbackTransaction(){
+        Connection conn = getConnection();
+        if(conn != null){
+            try {
+                conn.rollback();
+                conn.close();
+            } catch (SQLException e) {
+                LOGGER.error("transaction rollback failure", e);
+                throw new RuntimeException(e);
+            }finally {
+                CONNECTION_HOLDER.remove();
+            }
+        }
+    }
+
+    /**
      * description: 程序实体列表
      * author: Administrator
      * date: 2018/12/12 17:16

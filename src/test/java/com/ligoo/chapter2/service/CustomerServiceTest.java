@@ -1,5 +1,7 @@
 package com.ligoo.chapter2.service;
 
+import com.ligoo.framework.HelperLoader;
+import com.ligoo.framework.helper.BeanHelper;
 import com.ligoo.framework.helper.DataSourceHelper;
 import com.ligoo.chapter4.model.Customer;
 import com.ligoo.chapter4.service.CustomerService;
@@ -17,11 +19,13 @@ import java.util.Map;
  * @Description:
  */
 public class CustomerServiceTest {
-    private final CustomerService customerService;
+    private CustomerService customerService;
 
     public CustomerServiceTest() {
-        customerService = new CustomerService();
+        HelperLoader.init();
+        customerService = (CustomerService) BeanHelper.getBean(CustomerService.class);
     }
+
 
     @Before
     public void init(){

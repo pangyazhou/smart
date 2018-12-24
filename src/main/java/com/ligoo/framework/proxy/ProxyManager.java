@@ -13,6 +13,14 @@ import java.util.List;
  * @Description: 代理类管理器
  */
 public class ProxyManager {
+    /**
+     * description: 获取代理对象
+     * author: Administrator
+     * date: 2018/12/20 13:31
+     *
+     * @param:
+     * @return:
+     */
     @SuppressWarnings("unchecked")
     public static <T>  T createProxy(final Class<?> targetClass, final List<Proxy> proxyList){
         return (T) Enhancer.create(targetClass, new MethodInterceptor() {

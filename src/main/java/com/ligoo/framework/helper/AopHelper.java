@@ -2,9 +2,11 @@ package com.ligoo.framework.helper;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ligoo.framework.annotation.Aspect;
+import com.ligoo.framework.annotation.Service;
 import com.ligoo.framework.proxy.AspectProxy;
 import com.ligoo.framework.proxy.Proxy;
 import com.ligoo.framework.proxy.ProxyManager;
+import com.ligoo.framework.proxy.TransactionProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +62,7 @@ public final class AopHelper {
     }
 
     /**
-     * description: 获取所有的切面代理类与目标类的映射
+     * description: 获取所有的代理类与目标类的映射
      * author: Administrator
      * date: 2018/12/18 14:23
      *
@@ -69,6 +71,20 @@ public final class AopHelper {
      */
     private static Map<Class<?>, Set<Class<?>>> createProxyMap(){
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
+        addAspectProxy(proxyMap);
+        addTransactionProxy(proxyMap);
+        return proxyMap;
+    }
+
+    /**
+     * description: 添加切面代理类与目标类映射
+     * author: Administrator
+     * date: 2018/12/20 14:04
+     *
+     * @param:
+     * @return:
+     */
+    private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
         // AspectProxy类的子类集合
         Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
         for (Class<?> clazz: proxyClassSet){
@@ -80,9 +96,20 @@ public final class AopHelper {
                 proxyMap.put(clazz, targetClassSet);
             }
         }
-        return proxyMap;
     }
 
+    /**
+     * description: 添加事务代理类与目标类映射
+     * author: Administrator
+     * date: 2018/12/20 14:03
+     *
+     * @param:
+     * @return:
+     */
+    private static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
+        Set<Class<?>> serviceClassSet = ClassHelper.getClassSetByAnnotation(Service.class);
+        proxyMap.put(TransactionProxy.class, serviceClassSet);
+    }
 
     /**
      * description: 获取目标类与代理对象集合的映射
